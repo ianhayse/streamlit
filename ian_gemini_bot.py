@@ -1,14 +1,21 @@
 import os
+from dotenv import load_dotenv
 import streamlit as streamL
 import google.generativeai as gAI
 
 
-os.environ['GOOGLE_API_KEY'] = streamL.secrets["GOOGLE_API_KEY"]
-gAI.configure(api_key = os.environ['GOOGLE_API_KEY'])
+load_dotenv('C:\\code\\python\\Google\\.env')
+api_key = os.environ.get("GOOGLE_API_KEY")
 
+if not api_key:
+    raise ValueError("No GOOGLE_API_KEY found in the environment. Please check your .env file")
+
+gAI.configure(api_key=api_key)
 model = gAI.GenerativeModel('gemini-pro')
 
+
 replacements = [("ian"),("edfrna"),("chelsea")]
+
 
 streamL.title("Not Ian's Gemini Bot")
 
